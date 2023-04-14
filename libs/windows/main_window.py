@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QMainWindow,\
                                 QPushButton,QVBoxLayout,\
                                 QWidget
+from libs.windows import embedding as emb
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -11,7 +12,7 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout()
         #button for embedding
         b_embd = QPushButton('Create embedding')
-        b_embd.clicked.connect(self.test)
+        b_embd.clicked.connect(self.embd_click)
         #button for semantic search
         b_search = QPushButton('Semantic Search')
         #button for QnA bot
@@ -27,10 +28,13 @@ class MainWindow(QMainWindow):
         widget.setLayout(layout)
         self.setCentralWidget(widget)
     def embd_click(self):
-        print('create embedding place holder')
+        global emb_w 
+        emb_w = emb.EmbeddingWidget(self)
+        emb_w.show()
+        self.hide()
     def search_click(self):
         print('create semantic search place holder')
     def qna_click(self):
-        print('create semantic search place holder')
+        print('create qna bot place holder')
     def close_click(self):
-        print('create semantic search place holder')
+        print('close app place holder')
