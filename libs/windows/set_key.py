@@ -24,7 +24,7 @@ class KeyInputDialog(QDialog):
         self.setLayout(self.layout)
     def __save_default(self):
         import tempfile,os
-        file_path = os.path.join(tempfile.gettempdir(),'.docQnA.key')
+        file_path = os.path.join(tempfile.gettempdir(),'.uSearch.key')
         with open(file_path,'w') as f:
             f.write(self.lineEdit.text())
             f.close()
@@ -32,15 +32,6 @@ class KeyInputDialog(QDialog):
             f.write(file_path)
             f.close()
         self.__confirm(file_path)
-        '''
-        file_path, _ = QFileDialog.getSaveFileName(self, 'Open Files', '', 'Text files (*.txt);;All files (*.*)')
-        with open(file_path,'w') as f:
-            f.write(self.lineEdit.text())
-            f.close()
-        with open('.keypath','w') as f:
-            f.write(file_path)
-            f.close()
-        '''
         self.__ok()
     def __ok(self):
         import openai
