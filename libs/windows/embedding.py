@@ -5,7 +5,6 @@ from PySide6.QtGui import QColor
 from PySide6.QtCore import Qt
 import os,pickle,time
 from libs.windows import search,question_answer
-os.environ['OPENAI_API_KEY'] = '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'
 def len_(text):
     return(len(text.split(' ')))
 def sel_key_by_val(dict_, val_):
