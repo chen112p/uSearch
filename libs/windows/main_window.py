@@ -86,11 +86,12 @@ class MainWindow(QMainWindow):
             self.l_key.setText('Invalid API key.')
         self.check_key()
     def check_key(self):
-        import openai
+        import openai,os
         try:
             openai.Completion.create(engine='ada', prompt="Test")
             self.key_valid = True
             self.l_key.setText('Valid API key.')
+            os.environ['OPENAI_API_KEY'] = openai.api_key
             #return('Valid API key.')
         except openai.error.AuthenticationError:
             self.l_key.setText('Invalid API key.')

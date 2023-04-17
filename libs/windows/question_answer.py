@@ -7,6 +7,8 @@ from PySide6.QtCore import Qt
 class QnAWidget(QWidget):
     def __init__(self,embd_window):
         super().__init__()
+        import openai
+        print(openai.api_key)
         self.embd_window = embd_window
         self.setWindowTitle('uSearch - QnA bot')
         self.setGeometry(400,100,1200,500)
