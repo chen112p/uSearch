@@ -15,11 +15,14 @@ class MainWindow(QMainWindow):
         b_embd.clicked.connect(self.embd_click)
         #button for semantic search
         b_search = QPushButton('Semantic Search')
+        b_search.clicked.connect(self.search_click)
         #button for QnA bot
         b_qna = QPushButton('QnA Bot')
+        b_qna.clicked.connect(self.qna_click)
         #button for close
         b_close = QPushButton('Quit')
-
+        b_close.clicked.connect(self.close_click)
+    
         layout.addWidget(b_embd)
         layout.addWidget(b_search)
         layout.addWidget(b_qna)
@@ -33,8 +36,11 @@ class MainWindow(QMainWindow):
         emb_w.show()
         self.hide()
     def search_click(self):
-        print('create semantic search place holder')
+        global lemb_w 
+        lemb_w = emb.LoadEmbeddingWidget(self)
+        lemb_w.show()
+        self.hide()
     def qna_click(self):
         print('create qna bot place holder')
     def close_click(self):
-        print('close app place holder')
+        self.close()
