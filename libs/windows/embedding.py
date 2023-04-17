@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QApplication,QWidget,QPushButton,QGridLayout,\
 from PySide6.QtGui import QColor
 from PySide6.QtCore import Qt
 import os,pickle,time
-from libs.windows import search as sc
+from libs.windows import search,question_answer
 os.environ['OPENAI_API_KEY'] = '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'
 def len_(text):
     return(len(text.split(' ')))
@@ -128,7 +128,9 @@ class EmbeddingWidget(QWidget):
                 self.f_all[fp] = 'Failed'
                 self.__refresh() 
 class LoadEmbeddingWidget(QWidget):
-    def __init__(self,MainWindow):
+    def __init__(self,MainWindow,next_):
+        #next parameter tells whether the next step is a semantic search or qna bot
+        self.next_ = next_
         super().__init__()
         self.main_windows = MainWindow
         self.setWindowTitle('uSearch - Load Embeddings')
@@ -138,7 +140,6 @@ class LoadEmbeddingWidget(QWidget):
         self.f_all = {}
         self.t_fileload = TableView(self.f_all)
         self.__refresh()
-
         #add files
         b_add = QPushButton('Add embedded files')
         b_add.clicked.connect(self.__add)
@@ -146,7 +147,11 @@ class LoadEmbeddingWidget(QWidget):
         b_clear = QPushButton('Clear all')
         b_clear.clicked.connect(self.__clear)
         #search button
-        b_search = QPushButton('Search')
+        if self.next_ =='semantic_search':
+            b_search_txt = 'Search'
+        elif self.next_ =='qna':
+            b_search_txt = 'QnA'
+        b_search = QPushButton(b_search_txt)
         b_search.clicked.connect(self.__search)
         #back button
         b_back = QPushButton('Back')
@@ -175,15 +180,20 @@ class LoadEmbeddingWidget(QWidget):
         self.f_all = {}
         self.__refresh()
     def __search(self):
-        global lemb_w 
-        lemb_w = sc.SemanticSearchWidget(self)
-        lemb_w.show()
-        self.hide()
+        if self.next_ =='semantic_search':
+            global semsearch_w 
+            semsearch_w = search.SemanticSearchWidget(self)
+            semsearch_w.show()
+            self.hide()
+        elif self.next_ == 'qna':
+            global qna_bot
+            qna_bot = question_answer.QnAWidget(self)
+            qna_bot.show()
+            self.hide()
     def __back(self):
         self.close()
         self.main_windows.show()
     def __refresh(self):
-        #self.t_fileload.clearContents()
         self.t_fileload.setRowCount(len(self.f_all))
         self.t_fileload.setColumnCount(2)
         row = 0

@@ -37,10 +37,13 @@ class MainWindow(QMainWindow):
         self.hide()
     def search_click(self):
         global lemb_w 
-        lemb_w = emb.LoadEmbeddingWidget(self)
+        lemb_w = emb.LoadEmbeddingWidget(self,'semantic_search')
         lemb_w.show()
         self.hide()
     def qna_click(self):
-        print('create qna bot place holder')
+        global lemb_w 
+        lemb_w = emb.LoadEmbeddingWidget(self,'qna')
+        lemb_w.show()
+        self.hide()
     def close_click(self):
         self.close()

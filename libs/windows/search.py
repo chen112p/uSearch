@@ -16,7 +16,6 @@ class SearchResultTable(QTableWidget):
         self.resizeRowsToContents()
     def setData(self): 
         horHeaders = ['Score','file name','page', 'Text']
-        row = 0
         self.setHorizontalHeaderLabels(horHeaders)
 
     
@@ -24,7 +23,7 @@ class SemanticSearchWidget(QWidget):
     def __init__(self,embd_window):
         super().__init__()
         self.embd_window = embd_window
-        self.setWindowTitle('uSearch - Load Embeddings')
+        self.setWindowTitle('uSearch - Search')
         self.setGeometry(400,100,1200,500)
         self.layout = QGridLayout()
         #initialize result
