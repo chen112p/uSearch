@@ -1,8 +1,6 @@
-# docQnA
+# uSearch
 
 # issues for later
-- General
-1. API key
 
 - Create embeddings
 1. languages - pdf decoder only read English at the moment
