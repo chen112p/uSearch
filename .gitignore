@@ -131,3 +131,4 @@ dmypy.json
 temp
 .keypath
 test_samples/
+saved_embeddings/*
