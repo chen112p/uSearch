@@ -7,8 +7,6 @@ from PySide6.QtCore import Qt
 class QnAWidget(QWidget):
     def __init__(self,embd_window):
         super().__init__()
-        import openai
-        print(openai.api_key)
         self.embd_window = embd_window
         self.setWindowTitle('uSearch - QnA bot')
         self.setGeometry(400,100,1200,500)
@@ -114,7 +112,7 @@ class QnAWidget(QWidget):
             curr_row = [QStandardItem(value['source']),
                         QStandardItem(value['page_number']),
                         QStandardItem(value['text'])]
-            model.append(curr_row)
+            model.appendRow(curr_row)
         table_view.setModel(model)
         table_view.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
         table_window.setCentralWidget(table_view)

@@ -106,26 +106,26 @@ class EmbeddingWidget(QWidget):
         from langchain.embeddings.openai import OpenAIEmbeddings
         for i_fp,fp in enumerate(self.f_all.keys()):
             fname,fext = os.path.splitext(os.path.split(fp)[-1])
-            try:
+            #try:
                 #load pdf (assuming all files are pdf)
-                pdf_loader = PyPDFLoader(fp)
-                doc = pdf_loader.load()
-                #split pdf into hard coded ~500 words a chunck
-                text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0,length_function = len_)
-                texts = text_splitter.split_documents(doc)
-                #create embedded text chunks
-                embeddings = OpenAIEmbeddings(model='text-embedding-ada-002')
-                doc_emb = FAISS.from_documents(texts,embeddings)
-                embedding_path = os.path.join('saved_embeddings')
-                if os.path.exists(embedding_path)!= True:
-                    os.makedirs(embedding_path)
-                with open(os.path.join(embedding_path,fname+'.usc'), 'wb') as f:
-                    pickle.dump(doc_emb, f)
-                self.f_all[fp] = 'Saved'
-                self.__refresh()
-            except:
-                self.f_all[fp] = 'Failed'
-                self.__refresh() 
+            pdf_loader = PyPDFLoader(fp)
+            doc = pdf_loader.load()
+            #split pdf into hard coded ~500 words a chunck
+            text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0,length_function = len_)
+            texts = text_splitter.split_documents(doc)
+            #create embedded text chunks
+            embeddings = OpenAIEmbeddings(model='text-embedding-ada-002')
+            doc_emb = FAISS.from_documents(texts,embeddings)
+            embedding_path = os.path.join('saved_embeddings')
+            if os.path.exists(embedding_path)!= True:
+                os.makedirs(embedding_path)
+            with open(os.path.join(embedding_path,fname+'.usc'), 'wb') as f:
+                pickle.dump(doc_emb, f)
+            self.f_all[fp] = 'Saved'
+            self.__refresh()
+            #except:
+            #    self.f_all[fp] = 'Failed'
+            #    self.__refresh() 
 class LoadEmbeddingWidget(QWidget):
     def __init__(self,MainWindow,next_):
         #next parameter tells whether the next step is a semantic search or qna bot
