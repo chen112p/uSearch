@@ -129,5 +129,4 @@ dmypy.json
 .pyre/
 
 temp
-.keypath
 test_samples/
