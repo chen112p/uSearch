@@ -69,13 +69,13 @@ class MainWindow(QMainWindow):
         import openai
         import os
         key_path_path = '.keypath'
-        if os.path.exists(key_path_path):
-            with open(key_path_path) as f:
-                key_path = f.read()
+        if os.path.exists(key_path_path)!= True:
+            with open(key_path_path,'w') as f:
+                f.close()
+        with open(key_path_path) as f:
+            key_path = f.read()
             f.close()
-        else:
-            #return('Inalid API key.')
-            self.l_key.setText('Invalid API key.')
+            #self.l_key.setText('Invalid API key.')
         if os.path.exists(key_path):
             with open(key_path) as f:
                 key = f.read()
